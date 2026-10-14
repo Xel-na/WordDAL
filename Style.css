@@ -1,87 +1,349 @@
-/* ========================================
-   GENERAL STYLES
-======================================== */
+/* ==========================================================================
+   WORDDAL - GRAND LIBRARY / DARK ACADEMIA STYLESHEET
+   ========================================================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+
+/* --- Root Variables & Color Tokens --- */
+:root {
+    --bg-library: #0d0a07;
+    --mahogany-dark: #18110b;
+    --mahogany-card: rgba(26, 19, 13, 0.85);
+    --parchment-gold: #e2c08d;
+    --parchment-light: #f4e8d3;
+    --parchment-text: #d9c5a3;
+    --text-muted: #9e896a;
+    --gold-accent: #d4af37;
+    --gold-glow: rgba(212, 175, 55, 0.25);
+    --leather-border: rgba(212, 175, 55, 0.2);
+    --shadow-book: 0 15px 35px rgba(0, 0, 0, 0.7), inset 0 0 10px rgba(0, 0, 0, 0.5);
+    --radius-leather: 12px;
+}
+
+/* --- Global Reset & Base Styles --- */
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #f4f7fb;
-    color: #222;
-    line-height: 1.6;
+    font-family: 'Lora', Georgia, serif;
+    background-color: var(--bg-library);
+    background-image: 
+        radial-gradient(ellipse at top, rgba(160, 100, 35, 0.15) 0%, transparent 70%),
+        radial-gradient(circle at bottom, rgba(80, 45, 15, 0.2) 0%, transparent 60%),
+        linear-gradient(rgba(13, 10, 7, 0.95), rgba(13, 10, 7, 0.95));
+    background-attachment: fixed;
+    color: var(--parchment-text);
+    line-height: 1.8;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-h1,
-h2,
-h3 {
-    margin-top: 0;
+/* --- Scrollbar Customization --- */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-library);
+}
+::-webkit-scrollbar-thumb {
+    background: #2d2116;
+    border: 1px solid var(--leather-border);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-accent);
 }
 
-a {
-    text-decoration: none;
-}
-
-
-/* ========================================
-   PORTFOLIO HEADER
-======================================== */
+/* ==========================================================================
+   HEADER / ARCHIVE TITLE
+   ========================================================================== */
 
 header {
-    background-image: url(Asset/Wallpaper.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: white;
-    background-attachment: scroll; 
     text-align: center;
-    padding: 60px 20px;
+    padding: 70px 20px 40px;
+    position: relative;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.15);
+    background: radial-gradient(circle at center, rgba(120, 75, 25, 0.12) 0%, transparent 70%);
+}
+
+header::before {
+    content: "✦ 📖 ✦";
+    display: block;
+    font-size: 20px;
+    color: var(--gold-accent);
+    margin-bottom: 10px;
+    letter-spacing: 6px;
 }
 
 header h1 {
-    font-size: 42px;
-    margin-bottom: 10px;
+    font-family: 'Cinzel', serif;
+    font-size: 54px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: var(--parchment-light);
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.3), 2px 2px 4px #000;
+    margin-bottom: 6px;
 }
 
 header p {
-    font-size: 18px;
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--gold-accent);
+    font-size: 13px;
+    font-weight: 700;
 }
 
+/* ==========================================================================
+   LAYOUT CONTAINERS & BOOK CARDS
+   ========================================================================== */
 
-/* ========================================
-   PORTFOLIO SECTIONS
-======================================== */
-
-section {
-    max-width: 1000px;
+main {
+    max-width: 850px;
+    width: 100%;
     margin: 40px auto;
     padding: 0 20px;
+    flex: 1;
 }
 
-section h2 {
-    color: #243b53;
+section {
+    margin-bottom: 35px;
+}
+
+/* Leather Bound Book Card Style */
+.search-section, 
+.result, 
+.project-box, 
+.app-section {
+    background: var(--mahogany-card);
+    border: 1px solid var(--leather-border);
+    border-radius: var(--radius-leather);
+    padding: 35px;
+    box-shadow: var(--shadow-book);
+    position: relative;
+    backdrop-filter: blur(8px);
+}
+
+/* Ornate Decorative Corner Inset */
+.search-section::after, 
+.result::after, 
+.project-box::after, 
+.app-section::after {
+    content: "";
+    position: absolute;
+    top: 6px; left: 6px; right: 6px; bottom: 6px;
+    border: 1px solid rgba(212, 175, 55, 0.08);
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 24px;
+    color: var(--parchment-gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+h2::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--leather-border), transparent);
+}
+
+/* ==========================================================================
+   SEARCH INPUT & BUTTONS
+   ========================================================================== */
+
+form {
+    display: flex;
+    gap: 12px;
+    position: relative;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 16px 20px;
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    background: rgba(10, 7, 4, 0.7);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: 8px;
+    color: var(--parchment-light);
+    outline: none;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.6);
+}
+
+input[type="text"]::placeholder {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+input[type="text"]:focus {
+    border-color: var(--gold-accent);
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.6), 0 0 15px var(--gold-glow);
+}
+
+button, .app-button {
+    padding: 16px 28px;
+    background: linear-gradient(180deg, #3d2b1f 0%, #1a100a 100%);
+    color: var(--parchment-gold);
+    border: 1px solid var(--gold-accent);
+    border-radius: 8px;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-shadow: 0 1px 2px #000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+button:hover, .app-button:hover {
+    background: linear-gradient(180deg, #523b2b 0%, #291a10 100%);
+    border-color: #f3e5ab;
+    color: #fff;
+    box-shadow: 0 0 20px var(--gold-glow);
+    transform: translateY(-2px);
+}
+
+/* Autocomplete Dropdown */
+.suggestions {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: #140d08;
+    border: 1px solid var(--gold-accent);
+    border-radius: 8px;
+    max-height: 220px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+    display: none;
+}
+
+.suggestions.active {
+    display: block;
+}
+
+.suggestion-item {
+    padding: 12px 20px;
+    font-size: 15px;
+    color: var(--parchment-text);
+    cursor: pointer;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+}
+
+.suggestion-item:hover {
+    background: rgba(212, 175, 55, 0.12);
+    color: var(--parchment-light);
+    padding-left: 25px;
+}
+
+.status {
+    margin-top: 18px;
+    font-size: 14px;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.status.error, .error {
+    color: #ff6b6b;
+    font-style: normal;
+}
+
+/* ==========================================================================
+   DICTIONARY ENTRY (ENCYCLOPEDIA PAGE)
+   ========================================================================== */
+
+.result {
+    margin-top: 30px;
+    min-height: 180px;
+}
+
+.result h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 42px;
+    color: var(--parchment-light);
+    border-bottom: 2px solid var(--gold-accent);
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+.pronunciation {
+    font-family: 'Lora', serif;
+    color: var(--gold-accent);
+    font-size: 18px;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+#audioButton {
+    padding: 10px 20px;
+    font-size: 13px;
+    margin-bottom: 25px;
+    background: rgba(212, 175, 55, 0.08);
+    border: 1px solid var(--leather-border);
+}
+
+.part-of-speech {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gold-accent);
+    margin-top: 25px;
     margin-bottom: 15px;
 }
 
-
-/* ========================================
-   PROJECT DESCRIPTION
-======================================== */
-
-.project-box {
-    background-color: white;
-    padding: 25px;
-    border-radius: 12px;
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+.meaning-item {
+    background: rgba(10, 7, 4, 0.4);
+    border-left: 3px solid var(--gold-accent);
+    border-radius: 0 8px 8px 0;
+    padding: 18px 22px;
+    margin-bottom: 15px;
+    border-top: 1px solid rgba(212, 175, 55, 0.05);
+    border-right: 1px solid rgba(212, 175, 55, 0.05);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.05);
 }
 
+.meaning-item p {
+    color: var(--parchment-text);
+    font-size: 16px;
+}
 
-/* ========================================
-   TEAM MEMBER CARDS
-======================================== */
+.example {
+    margin-top: 10px;
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 15px;
+}
+
+.example::before {
+    content: "“";
+    color: var(--gold-accent);
+    font-size: 18px;
+}
+
+.example::after {
+    content: "”";
+    color: var(--gold-accent);
+    font-size: 18px;
+}
+
+/* ==========================================================================
+   PORTFOLIO & TEAM CARDS
+   ========================================================================== */
 
 .members {
     display: flex;
@@ -91,395 +353,97 @@ section h2 {
 }
 
 .member-card {
-    background-color: white;
-    width: 280px;
-    padding: 25px;
+    background: var(--mahogany-card);
+    border: 1px solid var(--leather-border);
+    width: calc(33.333% - 14px);
+    min-width: 250px;
+    padding: 28px 20px;
     text-align: center;
-    border-radius: 12px;
+    border-radius: var(--radius-leather);
+    position: relative;
+    box-shadow: var(--shadow-book);
+}
 
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+.member-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold-accent);
+    box-shadow: 0 10px 25px var(--gold-glow);
 }
 
 .member-card img {
-    width: 140px;
-    height: 160px;
+    width: 110px;
+    height: 110px;
     object-fit: cover;
     border-radius: 50%;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
+    border: 2px solid var(--gold-accent);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
 }
 
 .member-card h3 {
-    color: #243b53;
-    margin-bottom: 5px;
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    color: var(--parchment-light);
+    margin-bottom: 4px;
 }
 
 .role {
-    font-weight: bold;
-    color: #526d82;
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold-accent);
+    margin-bottom: 12px;
 }
 
-
-/* ========================================
-   BUTTON
-======================================== */
-
-.app-button {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 14px 28px;
-
-    background-color: #243b53;
-    color: white;
-
-    border-radius: 8px;
-    font-weight: bold;
+.member-card p:not(.role) {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.6;
 }
 
-.app-button:hover {
-    background-color: #102a43;
-}
-
-
-/* ========================================
-   APP BUTTON SECTION
-======================================== */
-
-.app-section {
-    text-align: center;
-    background-color: #e8f1f8;
-    padding: 40px 20px;
-    border-radius: 12px;
-}
-
-
-/* ========================================
-   DICTIONARY SEARCH AREA
-======================================== */
-
-.search-section {
-    background-color: white;
-    padding: 25px;
-    border-radius: 12px;
-    position: relative;
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.search-section h2 {
-    margin-top: 0;
-    color: #243b53;
-}
-
-
-/* Search Form */
-
-form {
-    display: flex;
-    gap: 10px;
-}
-
-input {
-    flex: 1;
-    padding: 14px;
-
-    font-size: 16px;
-
-    border: 1px solid #ccc;
-    border-radius: 8px;
-}
-
-input:focus {
-    outline: 2px solid #526d82;
-}
-
-
-/* Search Button */
-
-button {
-    padding: 14px 25px;
-
-    background-color: #243b53;
-    color: white;
-
-    border: none;
-    border-radius: 8px;
-
-    cursor: pointer;
-    font-weight: bold;
-}
-
-button:hover {
-    background-color: #102a43;
-}
-
-
-/* ========================================
-   STATUS / ERROR MESSAGE
-======================================== */
-
-.status {
-    margin-top: 20px;
-    color: #526d82;
-}
-
-
-/* Error message */
-
-.error {
-    color: #b42318;
-    font-weight: bold;
-}
-
-
-/* ========================================
-   DICTIONARY RESULT
-======================================== */
-
-.result {
-    background-color: white;
-
-    margin-top: 25px;
-    padding: 30px;
-
-    border-radius: 12px;
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.result h2 {
-    font-size: 32px;
-    color: #243b53;
-    margin-bottom: 5px;
-}
-
-.result h3 {
-    color: #243b53;
-    margin-bottom: 5px;
-}
-
-.part-of-speech {
-    font-style: italic;
-    color: #526d82;
-    margin-bottom: 20px;
-}
-
-
-/* ========================================
-   DICTIONARY MAIN AREA
-======================================== */
-
-main {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 0 20px;
-}
-
-
-/* ========================================
+/* ==========================================================================
    FOOTER
-======================================== */
+   ========================================================================== */
 
 footer {
     text-align: center;
-
-    background-image: url('Asset/Wallpaper.jpg');
-    color: white;
-
-    padding: 20px;
-    margin-top: 50px;
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
+    color: var(--text-muted);
+    padding: 40px 20px;
+    margin-top: 60px;
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    background: rgba(10, 7, 4, 0.8);
 }
 
+footer p {
+    margin: 4px 0;
+}
 
-/* ========================================
+/* ==========================================================================
    RESPONSIVE DESIGN
-   FOR TABLETS AND PHONES
-======================================== */
+   ========================================================================== */
 
 @media (max-width: 768px) {
-
-    header {
-        padding: 40px 15px;
-    }
-
     header h1 {
-        font-size: 32px;
+        font-size: 38px;
     }
-
-    header p {
-        font-size: 16px;
-    }
-
-    section {
-        margin: 25px auto;
-        padding: 0 15px;
-    }
-
-    .members {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .member-card {
-        width: 100%;
-        max-width: 350px;
-    }
-
-    .app-section {
-        padding: 30px 15px;
-    }
-
-    main {
-        margin: 25px auto;
-        padding: 0 15px;
-    }
-
-    .search-section {
-        padding: 20px;
-    }
-
-    /*
-       Stack the search input and button
-       on smaller screens.
-    */
 
     form {
         flex-direction: column;
     }
 
-    input,
-    button {
+    input[type="text"], button {
         width: 100%;
     }
 
-    .result {
-        padding: 20px;
+    .member-card {
+        width: 100%;
     }
 
     .result h2 {
-        font-size: 28px;
+        font-size: 32px;
     }
-}
-
-
-/* ========================================
-   SMALL PHONE
-======================================== */
-
-@media (max-width: 480px) {
-
-    header h1 {
-        font-size: 28px;
-    }
-
-    header p {
-        font-size: 15px;
-    }
-
-    .member-card img {
-        width: 110px;
-        height: 110px;
-    }
-
-    .result h2 {
-        font-size: 25px;
-    }
-
-    footer {
-        font-size: 14px;
-    }
-}
-
-.suggestions {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-
-    background: white;
-    border: 1px solid #ddd;
-    border-top: none;
-    border-radius: 0 0 6px 6px;
-
-    max-height: 150px;
-    overflow-y: auto;
-
-    /* Does not affect the rest of the page */
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-
-    z-index: 1000;
-}
-
-.suggestion-item {
-    padding: 8px 12px;
-    text-align: left;
-    cursor: pointer;
-}
-
-.suggestion-item:hover {
-    background: #f2f2f2;
-}
-
-/* ========================================
-   PRONUNCIATION
-======================================== */
-
-.pronunciation {
-    color: #526d82;
-    font-size: 16px;
-    margin-bottom: 15px;
-}
-
-#audioButton {
-    padding: 10px 16px;
-    margin-bottom: 15px;
-    background-color: #243b53;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-#audioButton:hover {
-    background-color: #102a43;
-}
-
-
-/* ========================================
-   MEANING AND EXAMPLES
-======================================== */
-
-.meaning-item {
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: #f4f7fb;
-    border-radius: 8px;
-}
-
-.meaning-item h4 {
-    color: #526d82;
-    margin-top: 0;
-    margin-bottom: 8px;
-    font-style: italic;
-}
-
-.example {
-    padding: 10px;
-    background-color: #e8f1f8;
-    border-left: 4px solid #243b53;
-    border-radius: 4px;
-}
-
-
-/* ========================================
-   SECTION DIVIDERS
-======================================== */
-
-.result hr {
-    border: none;
-    border-top: 1px solid #ddd;
-    margin: 25px 0;
-}
-
-.result h3 {
-    margin-top: 20px;
 }
