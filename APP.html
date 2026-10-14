@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Style.css">
+
+    <title>WordDAL | Dictionary</title>
+</head>
+
+<body>
+
+    
+    <header>
+        <h1>WordDAL</h1>
+        <p>Dictionary</p>
+    </header>
+
+
+    <main>
+
+        <!-- Search Area -->
+        <section class="search-section">
+            <h2>Search for a Word</h2>
+
+            <form id="searchForm">
+
+                <label for="wordInput" hidden>
+                    Enter a word
+                </label>
+
+                <input
+                    type="text"
+                    id="wordInput"
+                    placeholder="Enter a word"
+                    autocomplete="off"
+                    required
+                >
+
+                <button type="submit">
+                    Search
+                </button>
+
+            </form>
+
+            <div id="suggestions" class="suggestions"></div>
+
+            <!-- Loading / Status Message -->
+            <p class="status" id="statusMessage">
+                Search for a word to see its definition.
+            </p>
+        </section>
+
+        <section class="result" id="resultContainer">
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        <p>WordDAL Dictionary Web Application</p>
+    </footer>
+
+    <script src="Script1.js"></script>
+
+</body>
+</html>

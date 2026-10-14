@@ -1,0 +1,485 @@
+/* ========================================
+   GENERAL STYLES
+======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f7fb;
+    color: #222;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+    margin-top: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* ========================================
+   PORTFOLIO HEADER
+======================================== */
+
+header {
+    background-image: url(Asset/Wallpaper.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    background-attachment: scroll; 
+    text-align: center;
+    padding: 60px 20px;
+}
+
+header h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 18px;
+}
+
+
+/* ========================================
+   PORTFOLIO SECTIONS
+======================================== */
+
+section {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+section h2 {
+    color: #243b53;
+    margin-bottom: 15px;
+}
+
+
+/* ========================================
+   PROJECT DESCRIPTION
+======================================== */
+
+.project-box {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ========================================
+   TEAM MEMBER CARDS
+======================================== */
+
+.members {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.member-card {
+    background-color: white;
+    width: 280px;
+    padding: 25px;
+    text-align: center;
+    border-radius: 12px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.member-card img {
+    width: 140px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.member-card h3 {
+    color: #243b53;
+    margin-bottom: 5px;
+}
+
+.role {
+    font-weight: bold;
+    color: #526d82;
+}
+
+
+/* ========================================
+   BUTTON
+======================================== */
+
+.app-button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 14px 28px;
+
+    background-color: #243b53;
+    color: white;
+
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.app-button:hover {
+    background-color: #102a43;
+}
+
+
+/* ========================================
+   APP BUTTON SECTION
+======================================== */
+
+.app-section {
+    text-align: center;
+    background-color: #e8f1f8;
+    padding: 40px 20px;
+    border-radius: 12px;
+}
+
+
+/* ========================================
+   DICTIONARY SEARCH AREA
+======================================== */
+
+.search-section {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+    position: relative;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.search-section h2 {
+    margin-top: 0;
+    color: #243b53;
+}
+
+
+/* Search Form */
+
+form {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    flex: 1;
+    padding: 14px;
+
+    font-size: 16px;
+
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+input:focus {
+    outline: 2px solid #526d82;
+}
+
+
+/* Search Button */
+
+button {
+    padding: 14px 25px;
+
+    background-color: #243b53;
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #102a43;
+}
+
+
+/* ========================================
+   STATUS / ERROR MESSAGE
+======================================== */
+
+.status {
+    margin-top: 20px;
+    color: #526d82;
+}
+
+
+/* Error message */
+
+.error {
+    color: #b42318;
+    font-weight: bold;
+}
+
+
+/* ========================================
+   DICTIONARY RESULT
+======================================== */
+
+.result {
+    background-color: white;
+
+    margin-top: 25px;
+    padding: 30px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.result h2 {
+    font-size: 32px;
+    color: #243b53;
+    margin-bottom: 5px;
+}
+
+.result h3 {
+    color: #243b53;
+    margin-bottom: 5px;
+}
+
+.part-of-speech {
+    font-style: italic;
+    color: #526d82;
+    margin-bottom: 20px;
+}
+
+
+/* ========================================
+   DICTIONARY MAIN AREA
+======================================== */
+
+main {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+footer {
+    text-align: center;
+
+    background-image: url('Asset/Wallpaper.jpg');
+    color: white;
+
+    padding: 20px;
+    margin-top: 50px;
+}
+
+
+/* ========================================
+   RESPONSIVE DESIGN
+   FOR TABLETS AND PHONES
+======================================== */
+
+@media (max-width: 768px) {
+
+    header {
+        padding: 40px 15px;
+    }
+
+    header h1 {
+        font-size: 32px;
+    }
+
+    header p {
+        font-size: 16px;
+    }
+
+    section {
+        margin: 25px auto;
+        padding: 0 15px;
+    }
+
+    .members {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .member-card {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .app-section {
+        padding: 30px 15px;
+    }
+
+    main {
+        margin: 25px auto;
+        padding: 0 15px;
+    }
+
+    .search-section {
+        padding: 20px;
+    }
+
+    /*
+       Stack the search input and button
+       on smaller screens.
+    */
+
+    form {
+        flex-direction: column;
+    }
+
+    input,
+    button {
+        width: 100%;
+    }
+
+    .result {
+        padding: 20px;
+    }
+
+    .result h2 {
+        font-size: 28px;
+    }
+}
+
+
+/* ========================================
+   SMALL PHONE
+======================================== */
+
+@media (max-width: 480px) {
+
+    header h1 {
+        font-size: 28px;
+    }
+
+    header p {
+        font-size: 15px;
+    }
+
+    .member-card img {
+        width: 110px;
+        height: 110px;
+    }
+
+    .result h2 {
+        font-size: 25px;
+    }
+
+    footer {
+        font-size: 14px;
+    }
+}
+
+.suggestions {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+
+    max-height: 150px;
+    overflow-y: auto;
+
+    /* Does not affect the rest of the page */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    z-index: 1000;
+}
+
+.suggestion-item {
+    padding: 8px 12px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background: #f2f2f2;
+}
+
+/* ========================================
+   PRONUNCIATION
+======================================== */
+
+.pronunciation {
+    color: #526d82;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+#audioButton {
+    padding: 10px 16px;
+    margin-bottom: 15px;
+    background-color: #243b53;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#audioButton:hover {
+    background-color: #102a43;
+}
+
+
+/* ========================================
+   MEANING AND EXAMPLES
+======================================== */
+
+.meaning-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f4f7fb;
+    border-radius: 8px;
+}
+
+.meaning-item h4 {
+    color: #526d82;
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-style: italic;
+}
+
+.example {
+    padding: 10px;
+    background-color: #e8f1f8;
+    border-left: 4px solid #243b53;
+    border-radius: 4px;
+}
+
+
+/* ========================================
+   SECTION DIVIDERS
+======================================== */
+
+.result hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 25px 0;
+}
+
+.result h3 {
+    margin-top: 20px;
+}
