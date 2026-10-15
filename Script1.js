@@ -1,4 +1,3 @@
-
 // ========================================
 // WORDDAL DICTIONARY
 // ========================================
@@ -12,8 +11,35 @@ const suggestions = document.getElementById("suggestions");
 
 
 // ========================================
-// SEARCH FOR A WORD
-// Uses the Wiktionary API
+// UTILITY FUNCTIONS (Defined First)
+// ========================================
+
+// Escape HTML to prevent injection
+function escapeHTML(text) {
+    if (!text) return "";
+    return String(text).replace(/[&<>"']/g, function (character) {
+        const entities = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        };
+        return entities[character];
+    });
+}
+
+// Remove HTML tags from raw Wiktionary API responses
+function cleanHTML(html) {
+    if (!html) return "";
+    const temporaryElement = document.createElement("div");
+    temporaryElement.innerHTML = html;
+    return temporaryElement.textContent || temporaryElement.innerText || "";
+}
+
+
+// ========================================
+// SEARCH FOR A WORD (Wiktionary API)
 // ========================================
 
 searchForm.addEventListener("submit", async function (event) {
@@ -31,6 +57,7 @@ searchForm.addEventListener("submit", async function (event) {
     statusMessage.className = "status";
     resultContainer.innerHTML = "";
     suggestions.innerHTML = "";
+    suggestions.classList.remove("active");
 
     const apiURL =
         "https://en.wiktionary.org/api/rest_v1/page/definition/" +
@@ -87,19 +114,18 @@ function displayWord(word, entries) {
                 <h4>${escapeHTML(entry.partOfSpeech || "Meaning")}</h4>
         `;
 
-        (entry.definitions || []).slice(0, 1).forEach(function (item)  {
+        (entry.definitions || []).slice(0, 2).forEach(function (item) {
             const definition = cleanHTML(item.definition || "");
 
-            meaningsHTML += `
-                <p>${escapeHTML(definition)}</p>
-            `;
+            if (definition) {
+                meaningsHTML += `<p>${escapeHTML(definition)}</p>`;
+            }
 
             // Collect example sentences
             const examples = item.examples || [];
 
             examples.forEach(function (example) {
                 const cleanedExample = cleanHTML(example);
-
                 if (cleanedExample) {
                     allExamples.push(cleanedExample);
                 }
@@ -149,17 +175,16 @@ function displayWord(word, entries) {
         <p id="antonyms">Loading antonyms...</p>
     `;
 
-    // Set up the pronunciation button
+    // Set up speech synthesis
     setupPronunciation(word);
 
-    // Load synonyms and antonyms from Datamuse
+    // Load synonyms and antonyms
     loadRelatedWords(word);
 }
 
 
 // ========================================
-// PRONUNCIATION
-// Uses the browser's built-in speech synthesis
+// PRONUNCIATION (Web Speech API)
 // ========================================
 
 function setupPronunciation(word) {
@@ -174,17 +199,14 @@ function setupPronunciation(word) {
 
 function speakWord(word) {
     if (!("speechSynthesis" in window)) {
-        statusMessage.textContent =
-            "Pronunciation is not supported by this browser.";
+        statusMessage.textContent = "Pronunciation is not supported by this browser.";
         statusMessage.className = "status error";
         return;
     }
 
-    // Stop any previous pronunciation
     window.speechSynthesis.cancel();
 
     const speech = new SpeechSynthesisUtterance(word);
-
     speech.lang = "en-US";
     speech.rate = 0.85;
 
@@ -193,35 +215,14 @@ function speakWord(word) {
 
 
 // ========================================
-// REMOVE HTML TAGS FROM WIKTIONARY TEXT
-// ========================================
-
-function cleanHTML(html) {
-    const temporaryElement = document.createElement("div");
-    temporaryElement.innerHTML = html;
-
-    return temporaryElement.textContent ||
-        temporaryElement.innerText ||
-        "";
-}
-
-
-// ========================================
-// LOAD SYNONYMS AND ANTONYMS
-// Uses Datamuse
+// LOAD SYNONYMS & ANTONYMS (Datamuse API)
 // ========================================
 
 async function loadRelatedWords(word) {
     try {
         const [synonymResponse, antonymResponse] = await Promise.all([
-            fetch(
-                "https://api.datamuse.com/words?rel_syn=" +
-                encodeURIComponent(word) + "&max=10"
-            ),
-            fetch(
-                "https://api.datamuse.com/words?rel_ant=" +
-                encodeURIComponent(word) + "&max=10"
-            )
+            fetch("https://api.datamuse.com/words?rel_syn=" + encodeURIComponent(word) + "&max=10"),
+            fetch("https://api.datamuse.com/words?rel_ant=" + encodeURIComponent(word) + "&max=10")
         ]);
 
         if (!synonymResponse.ok || !antonymResponse.ok) {
@@ -252,31 +253,36 @@ async function loadRelatedWords(word) {
         const synonymElement = document.getElementById("synonyms");
         const antonymElement = document.getElementById("antonyms");
 
-        if (synonymElement) {
-            synonymElement.textContent = "Unable to load synonyms.";
-        }
-
-        if (antonymElement) {
-            antonymElement.textContent = "Unable to load antonyms.";
-        }
+        if (synonymElement) synonymElement.textContent = "Unable to load synonyms.";
+        if (antonymElement) antonymElement.textContent = "Unable to load antonyms.";
     }
 }
 
 
 // ========================================
-// AUTOCOMPLETE SUGGESTIONS
-// Uses the Datamuse API
+// AUTOCOMPLETE SUGGESTIONS (FIXED)
 // ========================================
 
-wordInput.addEventListener("input", async function () {
+let debounceTimer;
+
+wordInput.addEventListener("input", function () {
     const text = wordInput.value.trim();
 
-    suggestions.innerHTML = "";
+    clearTimeout(debounceTimer);
 
     if (text.length < 2) {
+        suggestions.innerHTML = "";
+        suggestions.classList.remove("active");
         return;
     }
 
+    // Debounce to prevent flooding the API while typing fast
+    debounceTimer = setTimeout(() => {
+        getSuggestions(text);
+    }, 200);
+});
+
+async function getSuggestions(text) {
     const suggestionURL =
         "https://api.datamuse.com/words?sp=" +
         encodeURIComponent(text) +
@@ -291,8 +297,16 @@ wordInput.addEventListener("input", async function () {
 
         const data = await response.json();
 
-        // Do not display suggestions if the input has changed
+        // Clear existing suggestions
+        suggestions.innerHTML = "";
+
+        // Ensure text hasn't changed while request was in transit
         if (wordInput.value.trim() !== text) {
+            return;
+        }
+
+        if (data.length === 0) {
+            suggestions.classList.remove("active");
             return;
         }
 
@@ -306,16 +320,26 @@ wordInput.addEventListener("input", async function () {
             suggestion.addEventListener("click", function () {
                 wordInput.value = item.word;
                 suggestions.innerHTML = "";
-                searchForm.requestSubmit();
+                suggestions.classList.remove("active");
+
+                // Trigger form search safely
+                if (typeof searchForm.requestSubmit === "function") {
+                    searchForm.requestSubmit();
+                } else {
+                    searchForm.dispatchEvent(new Event("submit", { cancelable: true }));
+                }
             });
 
             suggestions.appendChild(suggestion);
         });
 
+        // Show suggestions box
+        suggestions.classList.add("active");
+
     } catch (error) {
         console.error("Suggestion error:", error);
     }
-});
+}
 
 
 // ========================================
@@ -328,24 +352,6 @@ document.addEventListener("click", function (event) {
         !suggestions.contains(event.target)
     ) {
         suggestions.innerHTML = "";
+        suggestions.classList.remove("active");
     }
 });
-
-
-// ========================================
-// ESCAPE HTML TO HELP PREVENT HTML INJECTION
-// ========================================
-
-function escapeHTML(text) {
-    return String(text).replace(/[&<>"']/g, function (character) {
-        const entities = {
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#39;"
-        };
-
-        return entities[character];
-    });
-}

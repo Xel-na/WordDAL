@@ -246,20 +246,19 @@ button:hover, .app-button:hover {
 
 /* Autocomplete Dropdown */
 .suggestions {
+    display: none; /* Hidden by default */
     position: absolute;
     top: calc(100% + 8px);
     left: 0;
     right: 0;
     background: #140d08;
-    border: 1px solid var(--gold-accent);
+    border: 1px solid #d4af37;
     border-radius: 8px;
     max-height: 220px;
     overflow-y: auto;
     z-index: 1000;
     box-shadow: 0 10px 30px rgba(0,0,0,0.9);
-    display: none;
 }
-
 .suggestions.active {
     display: block;
 }
@@ -474,5 +473,66 @@ footer p {
 
     .result h2 {
         font-size: 32px;
+    }
+}
+/* Keep the search card above the result card */
+.search-section {
+    position: relative;
+    z-index: 10;
+}
+
+.search-section form {
+    position: relative;
+    z-index: 2;
+}
+
+.search-section .suggestions {
+    display: none;
+    position: absolute;
+
+    /* Align with the search form */
+    top: 205px;
+    left: 35px;
+    right: 35px;
+
+    background: #140d08;
+    border: 1px solid #d4af37;
+    border-radius: 8px;
+
+    max-height: 220px;
+    overflow-y: auto;
+
+    z-index: 9999;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+}
+
+.search-section .suggestions.active {
+    display: block;
+}
+
+.search-section .suggestion-item {
+    padding: 12px 20px;
+    color: var(--parchment-text);
+    font-size: 15px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+}
+
+.search-section .suggestion-item:hover {
+    background: rgba(212, 175, 55, 0.12);
+    color: var(--parchment-light);
+}
+
+.result {
+    position: relative;
+    z-index: 1;
+}
+
+/* Responsive positioning */
+@media (max-width: 768px) {
+    .search-section .suggestions {
+        top: 255px;
+        left: 20px;
+        right: 20px;
     }
 }
