@@ -1,6 +1,6 @@
-/* ==========================================================================
-   WORDDAL - GRAND LIBRARY / DARK ACADEMIA STYLESHEET
-   ========================================================================== */
+/*
+   WORDDAL - GRAND LIBRARY / DARK ACADEMIA STYLESHEET ============================
+*/
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap');
 
@@ -20,11 +20,18 @@
     --radius-leather: 12px;
 }
 
-/* --- Global Reset & Base Styles --- */
+/* Global Reset */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+button,
+.app-button,
+.member-card,
+.suggestion-item,
+input[type="text"] {
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -59,9 +66,9 @@ body {
     background: var(--gold-accent);
 }
 
-/* ==========================================================================
-   HEADER / ARCHIVE TITLE
-   ========================================================================== */
+/*
+   HEADER / ARCHIVE TITLE ======================================================
+*/
 
 header {
     text-align: center;
@@ -72,7 +79,7 @@ header {
 }
 
 header::before {
-    content: "✦ 📖 ✦";
+    content: "<-- ✦ 📖 ✦ -->";
     display: block;
     font-size: 20px;
     color: var(--gold-accent);
@@ -99,9 +106,9 @@ header p {
     font-weight: 700;
 }
 
-/* ==========================================================================
-   LAYOUT CONTAINERS & BOOK CARDS
-   ========================================================================== */
+/*
+   LAYOUT CONTAINERS & BOOK CARDS ==============================================
+*/
 
 main {
     max-width: 850px;
@@ -128,6 +135,28 @@ section {
     position: relative;
     backdrop-filter: blur(8px);
 }
+
+/*
+   APP BUTTON SECTION ===============================================
+*/
+
+.app-section {
+    text-align: center;
+}
+
+/* Paragraph spacing inside .app-section */
+.app-section p {
+    color: #9e896a;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.app-button {
+    display: inline-block;
+    margin-top: 15px; 
+    text-decoration: none;
+}
+
 
 /* Ornate Decorative Corner Inset */
 .search-section::after, 
@@ -159,9 +188,9 @@ h2::after {
     background: linear-gradient(90deg, var(--leather-border), transparent);
 }
 
-/* ==========================================================================
-   SEARCH INPUT & BUTTONS
-   ========================================================================== */
+/*
+   SEARCH INPUT & BUTTONS ========================================================
+*/
 
 form {
     display: flex;
@@ -261,9 +290,9 @@ button:hover, .app-button:hover {
     font-style: normal;
 }
 
-/* ==========================================================================
-   DICTIONARY ENTRY (ENCYCLOPEDIA PAGE)
-   ========================================================================== */
+/*
+   DICTIONARY ENTRY (ENCYCLOPEDIA PAGE) ===========================================
+*/
 
 .result {
     margin-top: 30px;
@@ -341,9 +370,9 @@ button:hover, .app-button:hover {
     font-size: 18px;
 }
 
-/* ==========================================================================
-   PORTFOLIO & TEAM CARDS
-   ========================================================================== */
+/*
+   PORTFOLIO & TEAM CARDS ========================================================
+*/
 
 .members {
     display: flex;
@@ -402,9 +431,9 @@ button:hover, .app-button:hover {
     line-height: 1.6;
 }
 
-/* ==========================================================================
-   FOOTER
-   ========================================================================== */
+/*
+   FOOTER ========================================================================
+*/
 
 footer {
     text-align: center;
@@ -422,9 +451,9 @@ footer p {
     margin: 4px 0;
 }
 
-/* ==========================================================================
-   RESPONSIVE DESIGN
-   ========================================================================== */
+/*
+   RESPONSIVE DESIGN ============================================================
+*/
 
 @media (max-width: 768px) {
     header h1 {
