@@ -101,29 +101,29 @@ searchForm.addEventListener("submit", async function (event) {
 
 
 // ========================================
-// DISPLAY WORD DETAILS
+// DISPLAY WORD DETAILS (GROUPED BY PART OF SPEECH)
 // ========================================
 
 function displayWord(word, entries) {
-    let meaningsHTML = "";
+    const groupedMeanings = {};
     const allExamples = [];
 
+    // 1. Group definitions by partOfSpeech
     entries.forEach(function (entry) {
-        meaningsHTML += `
-            <div class="meaning-item">
-                <h4>${escapeHTML(entry.partOfSpeech || "Meaning")}</h4>
-        `;
+        const pos = (entry.partOfSpeech || "Meaning").toLowerCase();
+        
+        if (!groupedMeanings[pos]) {
+            groupedMeanings[pos] = [];
+        }
 
-        (entry.definitions || []).slice(0, 2).forEach(function (item) {
+        (entry.definitions || []).forEach(function (item) {
             const definition = cleanHTML(item.definition || "");
-
             if (definition) {
-                meaningsHTML += `<p>${escapeHTML(definition)}</p>`;
+                groupedMeanings[pos].push(definition);
             }
 
             // Collect example sentences
             const examples = item.examples || [];
-
             examples.forEach(function (example) {
                 const cleanedExample = cleanHTML(example);
                 if (cleanedExample) {
@@ -131,11 +131,28 @@ function displayWord(word, entries) {
                 }
             });
         });
-
-        meaningsHTML += "</div>";
     });
 
-    // Remove duplicate examples
+    // 2. Build grouped HTML output
+    let meaningsHTML = "";
+
+    for (const [pos, definitions] of Object.entries(groupedMeanings)) {
+        if (definitions.length === 0) continue;
+
+        // Capitalize the first letter of the Part of Speech (e.g., "noun" -> "Noun")
+        const formattedPOS = pos.charAt(0).toUpperCase() + pos.slice(1);
+
+        meaningsHTML += `
+            <div class="meaning-item">
+                <h4>${escapeHTML(formattedPOS)}</h4>
+                <ol>
+                    ${definitions.slice(0, 3).map(def => `<li>${escapeHTML(def)}</li>`).join("")}
+                </ol>
+            </div>
+        `;
+    }
+
+    // 3. Remove duplicate examples (Limit to top 3)
     const uniqueExamples = [...new Set(allExamples)].slice(0, 3);
 
     const examplesHTML = uniqueExamples.length
@@ -144,6 +161,7 @@ function displayWord(word, entries) {
         }).join("")
         : "<li>No examples available.</li>";
 
+    // 4. Render to DOM
     resultContainer.innerHTML = `
         <div class="word-heading">
             <h2>${escapeHTML(word)}</h2>
@@ -175,10 +193,7 @@ function displayWord(word, entries) {
         <p id="antonyms">Loading antonyms...</p>
     `;
 
-    // Set up speech synthesis
     setupPronunciation(word);
-
-    // Load synonyms and antonyms
     loadRelatedWords(word);
 }
 
