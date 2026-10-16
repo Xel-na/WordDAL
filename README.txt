@@ -44,7 +44,7 @@ INSTRUCTIONS TO RUN THE APPLICATION:
 SPECIAL INSTRUCTIONS:
 
 - An internet connection is required to retrieve information from Wiktionary and Datamuse.
-- Use a modern browser such as Google Chrome or Microsoft Edge.
+- Use a modern browser such as Google Chrome,Brave or Microsoft Edge.
 - No API key is required for the APIs used by this project.
 - Pronunciation depends on the speech voices available on the user's browser and device.
 - Keep the HTML, CSS, JavaScript, and Asset folder in their correct locations so the application works properly.
