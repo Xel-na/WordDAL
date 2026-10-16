@@ -73,7 +73,7 @@ header {
 }
 
 header::before {
-    content: "✦ 📖 ✦";
+    content: "<-- ✦ 📖 ✦ -->";
     display: block;
     font-size: 18px;
     color: var(--gold-accent);
