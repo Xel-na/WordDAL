@@ -285,7 +285,7 @@ wordInput.addEventListener("input", function () {
 
     clearTimeout(debounceTimer);
 
-    if (text.length < 2) {
+    if (text.length < 2) {  
         suggestions.innerHTML = "";
         suggestions.classList.remove("active");
         return;
